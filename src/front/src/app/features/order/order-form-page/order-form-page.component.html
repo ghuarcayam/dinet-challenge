@@ -1,0 +1,217 @@
+@if (loading){
+  <div class="container" >
+    <div class="text-center">Loading order data...</div>
+  </div>
+}
+@else{
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h2>{{ isEditMode ? 'Edit Order' : 'Create New Order' }}</h2>
+      </div>
+      
+      <div class="card-body">
+        <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+          <div class="grid">
+            <!-- Customer Information -->
+            <div class="p-col-12 p-md-6">
+              <div class="p-field">
+                <label for="cliente">Customer</label>
+                <input 
+                  id="cliente" 
+                  type="text" 
+                  pInputText 
+                  formControlName="cliente" 
+                  class="p-inputtext w-full"
+                  [ngClass]="{'ng-invalid ng-dirty': orderForm.get('cliente')?.invalid && orderForm.get('cliente')?.touched}"
+                >
+                <small 
+                  class="p-error" 
+                  *ngIf="orderForm.get('cliente')?.invalid && orderForm.get('cliente')?.touched"
+                >
+                  Customer name is required
+                </small>
+              </div>
+            </div>
+            
+            <!-- Order Date -->
+            <div class="p-col-12 p-md-6">
+              <div class="p-field">
+                <label for="fechaCreacion">Creation Date</label>
+                <p-calendar 
+                  id="fechaCreacion" 
+                  formControlName="fechaCreacion" 
+                  [showIcon]="true" 
+                  dateFormat="dd/mm/yy"
+                  [ngClass]="{'ng-invalid ng-dirty': orderForm.get('fechaCreacion')?.invalid && orderForm.get('fechaCreacion')?.touched}"
+                ></p-calendar>
+                <small 
+                  class="p-error" 
+                  *ngIf="orderForm.get('fechaCreacion')?.invalid && orderForm.get('fechaCreacion')?.touched"
+                >
+                  Date is required
+                </small>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Order Items Section -->
+          <div class="p-mt-4">
+            <h3>Order Items</h3>
+            
+            <div formArrayName="items">
+              @for (item of items.controls; track $index; let i = $index){
+                <div 
+                [formGroupName]="i"
+                class="grid p-formgrid p-mb-3 p-align-center"
+              >
+                <!-- Product Name -->
+                <div class="p-col-12 p-md-4">
+                  <div class="p-field">
+                    <label [for]="'producto-' + i">Product</label>
+                    <input 
+                      [id]="'producto-' + i" 
+                      type="text" 
+                      pInputText 
+                      formControlName="producto" 
+                      class="p-inputtext w-full"
+                      [ngClass]="{'ng-invalid ng-dirty': item.get('producto')?.invalid && item.get('producto')?.touched}"
+                    >
+                    <small 
+                      class="p-error" 
+                      *ngIf="item.get('producto')?.invalid && item.get('producto')?.touched"
+                    >
+                      Product name is required
+                    </small>
+                  </div>
+                </div>
+                
+                <!-- Quantity -->
+                <div class="p-col-12 p-md-2">
+                  <div class="p-field">
+                    <label [for]="'cantidad-' + i">Quantity</label>
+                    <p-inputNumber 
+                      [id]="'cantidad-' + i" 
+                      formControlName="cantidad" 
+                      [min]="1" 
+                      [showButtons]="true"
+                      (onInput)="calculateItemTotal(i)"
+                      [ngClass]="{'ng-invalid ng-dirty': item.get('cantidad')?.invalid && item.get('cantidad')?.touched}"
+                    ></p-inputNumber>
+                    <small 
+                      class="p-error" 
+                      *ngIf="item.get('cantidad')?.invalid && item.get('cantidad')?.touched"
+                    >
+                      Valid quantity is required
+                    </small>
+                  </div>
+                </div>
+                
+                <!-- Unit Price -->
+                <div class="p-col-12 p-md-2">
+                  <div class="p-field">
+                    <label [for]="'precioUnitario-' + i">Unit Price</label>
+                    <p-inputNumber 
+                      [id]="'precioUnitario-' + i" 
+                      formControlName="precioUnitario" 
+                      mode="currency" 
+                      currency="USD" 
+                      [min]="0.01"
+                      (onInput)="calculateItemTotal(i)"
+                      [ngClass]="{'ng-invalid ng-dirty': item.get('precioUnitario')?.invalid && item.get('precioUnitario')?.touched}"
+                    ></p-inputNumber>
+                    <small 
+                      class="p-error" 
+                      *ngIf="item.get('precioUnitario')?.invalid && item.get('precioUnitario')?.touched"
+                    >
+                      Valid price is required
+                    </small>
+                  </div>
+                </div>
+                
+                <!-- Subtotal -->
+                <div class="p-col-12 p-md-2">
+                  <div class="p-field">
+                    <label [for]="'subTotal-' + i">Subtotal</label>
+                    <p-inputNumber 
+                      [id]="'subTotal-' + i" 
+                      formControlName="subTotal" 
+                      mode="currency" 
+                      currency="USD" 
+                      [readonly]="true"
+                    ></p-inputNumber>
+                  </div>
+                </div>
+                
+                <!-- Remove Item Button -->
+                <div class="p-col-12 p-md-2 p-d-flex p-jc-center p-ai-end">
+                  <button 
+                    type="button" 
+                    pButton 
+                    icon="pi pi-trash" 
+                    class="p-button-danger p-button-rounded" 
+                    (click)="removeItem(i)"
+                    [disabled]="items.length === 1"
+                  ></button>
+                </div>
+              </div>
+              }
+              
+            </div>
+            
+            <!-- Add Item Button -->
+            <div class="p-mt-2">
+              <button 
+                type="button" 
+                pButton 
+                icon="pi pi-plus" 
+                label="Add Item" 
+                class="p-button-secondary" 
+                (click)="addItem()"
+              ></button>
+            </div>
+          </div>
+          
+          <!-- Totals Section (Optional) -->
+          <div class="p-mt-4 p-text-right">
+            <h3>Order Summary</h3>
+            <div class="p-grid">
+              <div class="p-col-12 p-md-8"></div>
+              <div class="p-col-12 p-md-4">
+                <div class="p-grid">
+                  <div class="p-col-6 p-text-bold">Items:</div>
+                  <div class="p-col-6 p-text-right">{{ items.length }}</div>
+                  <!-- If you implement total calculation in the component, you could display it here -->
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Form Buttons -->
+          <div class="p-mt-4 p-d-flex p-jc-end">
+            <button 
+              type="button" 
+              pButton 
+              label="Cancel" 
+              class="p-button-outlined p-mr-2" 
+              (click)="cancel()"
+              [disabled]="submitting"
+            ></button>
+            <button 
+              type="submit" 
+              pButton 
+              [label]="isEditMode ? 'Update Order' : 'Create Order'" 
+              [disabled]="submitting"
+              [loading]="submitting"
+            ></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+}
+
+
+
+<!-- Confirmation Dialog/Toast Messages will be handled by PrimeNG Toast component -->
+<p-toast></p-toast>

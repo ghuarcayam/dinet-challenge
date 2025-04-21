@@ -1,0 +1,22 @@
+<div class="app-container">
+  @if (isLoggedIn){
+    <header class="app-header">
+      <div class="header-content">
+        <div class="logo">
+          <h1>Dinet Order Management</h1>
+        </div>
+        <div class="user-controls">
+          <p-button icon="pi pi-sign-out" label="Logout" styleClass="p-button-text" (click)="logout()"></p-button>
+        </div>
+      </div>
+    </header>
+  }
+  
+
+  <main class="app-content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Toast para mensajes/notificaciones -->
+  <p-toast></p-toast>
+</div>

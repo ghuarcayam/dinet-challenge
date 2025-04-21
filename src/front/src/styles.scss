@@ -1,0 +1,391 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "primeflex/primeflex.css";
+@import "primeicons/primeicons.css";
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+}
+
+
+.responsive-card {
+  margin-bottom: 1rem;
+}
+
+.field {
+  margin-bottom: 1rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.mb-3 {
+  margin-bottom: 1rem;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
+/* Estilos para las tablas responsive */
+.p-datatable-responsive .p-column-title {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .p-datatable-responsive .p-datatable-thead > tr > th,
+  .p-datatable-responsive .p-datatable-tfoot > tr > td {
+    display: none !important;
+  }
+
+  .p-datatable-responsive .p-datatable-tbody > tr > td {
+    text-align: left;
+    display: block;
+    width: 100%;
+    float: left;
+    clear: left;
+    border: 0 none;
+  }
+
+  .p-datatable-responsive .p-datatable-tbody > tr > td .p-column-title {
+    padding: 0.4rem;
+    min-width: 30%;
+    display: inline-block;
+    margin: -0.4em 1em -0.4em -0.4rem;
+    font-weight: bold;
+  }
+}
+
+/* Estilos para los botones de acción en tablas */
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-start;
+}
+
+.action-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+
+
+/* src/app/app.component.scss */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header {
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1rem;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.app-content {
+  flex: 1;
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .app-content {
+    padding: 0.5rem;
+  }
+}
+
+/* Contenedor principal centrado */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Tarjeta de login */
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  background: white;
+  border-radius: 1rem;
+  text-align: center;
+}
+
+/* Título */
+.login-card h2 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+/* Tarjeta PrimeNG */
+.login-form-card {
+  padding: 1.5rem;
+  border: none;
+  box-shadow: none;
+}
+
+/* Campos del formulario */
+.field {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+/* Etiquetas */
+.field label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #555;
+}
+
+/* Error */
+.p-error {
+  font-size: 0.85rem;
+  color: #f44336;
+  margin-top: 0.25rem;
+}
+
+/* Botón */
+button.p-button {
+  height: 2.5rem;
+  font-size: 1rem;
+}
+
+/* Responsive para móviles */
+@media (max-width: 480px) {
+  .login-card {
+    margin: 0 1rem;
+    padding: 1.5rem;
+  }
+}
+
+/* Contenedor general */
+.order-list-container {
+  padding: 2rem;
+  max-width: 100%;
+  color: #333;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Título */
+.order-list-container h1 {
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+/* Estilos para los p-card */
+.p-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 1rem;
+}
+
+/* Formulario de filtros */
+.field {
+  margin-bottom: 1rem;
+}
+
+.field label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+/* Contenedor de botones */
+.button-container {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* Botón de acción */
+.action-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Tabla */
+.p-table {
+  margin-top: 1rem;
+}
+
+/* Responsive para columnas en móviles */
+.p-column-title {
+  font-weight: bold;
+  display: none;
+}
+
+@media screen and (max-width: 960px) {
+  .p-column-title {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #666;
+  }
+}
+
+/* Botones de acciones en tabla */
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: start;
+}
+
+/* Tabla vacía */
+.p-datatable .p-datatable-emptymessage td {
+  text-align: center;
+  color: #888;
+}
+
+/* Margen inferior común */
+.mb-3 {
+  margin-bottom: 1.5rem;
+}
+.mb-4 {
+  margin-bottom: 2rem;
+}
+/* Contenedor general */
+.container {
+  margin: 2rem auto;
+  padding: 1.5rem;
+  max-width: 1200px;
+}
+
+/* Mensaje de carga */
+.text-center {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #6c757d;
+}
+
+/* Tarjeta de formulario */
+.card {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+/* Encabezado de la tarjeta */
+.card-header {
+  background-color: #f8f9fa;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #343a40;
+}
+
+/* Cuerpo del formulario */
+.card-body {
+  padding: 2rem;
+}
+
+/* Campos del formulario */
+.p-field {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #495057;
+}
+
+/* Inputs */
+input.p-inputtext,
+.p-inputnumber input {
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  font-size: 1rem;
+}
+
+/* Validaciones */
+.ng-invalid.ng-dirty {
+  border: 1px solid #dc3545 !important;
+}
+
+.p-error {
+  font-size: 0.875rem;
+  color: #dc3545;
+}
+
+/* Botones */
+button {
+  border-radius: 2rem !important;
+}
+
+/* Botón para eliminar ítems */
+.p-button-danger {
+  background-color: #e3342f;
+  border: none;
+}
+
+.p-button-danger:hover {
+  background-color: #cc1f1a;
+}
+
+
+.p-button-secondary {
+  background-color: #6c757d;
+  border: none;
+}
+
+.p-button-secondary:hover {
+  background-color: #5a6268;
+}
+
+.p-mt-4 {
+  margin-top: 2rem !important;
+}
+
+.p-mt-2 {
+  margin-top: 1rem !important;
+}
+
+/* Título resumen */
+h3 {
+  font-weight: 600;
+  color: #343a40;
+}
+
+
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1rem;
+  }
+
+  .card-header {
+    padding: 0.75rem 1rem;
+  }
+}
